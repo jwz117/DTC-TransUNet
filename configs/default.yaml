@@ -1,0 +1,25 @@
+# Reference defaults matching the current script. Confirm against the final manuscript.
+seed: 1234
+image_size: [128, 128]
+num_classes: 2
+base_channels: 64
+transformer_depth: 4
+transformer_heads: 8
+dtc_gcn_layers: 2
+dtc_gcn_dropout: 0.0
+dtc_gcn_iterations: 3
+dtc_gcn_alpha_fuse: 0.5
+dtc_gcn_nodes_per_pixel: 512
+dtc_gcn_max_nodes: 400
+morph_mid_channels: 32
+morph_alpha: 0.7
+morph_beta: 0.5
+gca_heads: 8
+gca_dropout: 0.0
+gca_residual_scale: 0.5
+batch_size: 16
+epochs: 100
+learning_rate: 0.01
+lr_gamma: 0.99
+momentum: 0.9
+weight_decay: 0.0001

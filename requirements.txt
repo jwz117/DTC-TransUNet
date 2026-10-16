@@ -1,0 +1,8 @@
+# DTC-TransUNet dependencies
+# Install PyTorch separately according to your OS and CUDA environment:
+# https://pytorch.org/get-started/locally/
+
+numpy
+opencv-python
+matplotlib
+tqdm
