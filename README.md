@@ -32,7 +32,7 @@ DTC-TransUNet/
 - **GCA**: graph cross-attention.
 - **Transformer bottleneck and decoder**: global dependency modeling and pixel-wise binary prediction.
 
-Check the final manuscript against the code before citing this repository as an exact reproduction.
+The CLI seeds Python, NumPy, and PyTorch through `utils/reproducibility.py`. The file `configs/default.yaml` records reference settings; the current CLI does not automatically load this YAML file, so command-line arguments and code defaults control execution. Check the final manuscript against the code before citing this repository as an exact reproduction.
 
 ## Environment
 
@@ -81,7 +81,14 @@ python train.py train --help
 Example (paths must exist locally):
 
 ```bash
-python train.py train   --train_images data/train_images.npy   --train_labels data/train_labels.npy   --val_images data/val_images.npy   --val_labels data/val_labels.npy   --test_images data/test_images.npy   --test_labels data/test_labels.npy   --epochs 100 --batch_size 16 --gpu_id 0
+python train.py train \
+  --train_images data/train_images.npy \
+  --train_labels data/train_labels.npy \
+  --val_images data/val_images.npy \
+  --val_labels data/val_labels.npy \
+  --test_images data/test_images.npy \
+  --test_labels data/test_labels.npy \
+  --epochs 100 --batch_size 16 --gpu_id 0
 ```
 
 Use `--allow_cpu` to permit CPU execution when CUDA is unavailable. Use `--skip_final_test` to skip the final held-out test evaluation; in that case, test NPY files are not required during training.
@@ -89,7 +96,12 @@ Use `--allow_cpu` to permit CPU execution when CUDA is unavailable. Use `--skip_
 ## Standalone testing
 
 ```bash
-python train.py test   --test_images data/test_images.npy   --test_labels data/test_labels.npy   --ckpt_path results/<run>/best_model.pth   --norm_stats results/<run>/norm_stats.npz   --gpu_id 0
+python train.py test \
+  --test_images data/test_images.npy \
+  --test_labels data/test_labels.npy \
+  --ckpt_path results/<run>/best_model.pth \
+  --norm_stats results/<run>/norm_stats.npz \
+  --gpu_id 0
 ```
 
 The checkpoint should be produced by the same architecture/configuration used for evaluation. Prefer the saved training normalization statistics; computing normalization statistics from the test set is not recommended.
@@ -105,3 +117,4 @@ The reported mIoU is the arithmetic mean of background IoU and landslide IoU, ca
 - Record the input size, input channels, seed, PyTorch/CUDA versions, and FLOPs counting convention.
 - Run a complete train-validation-test cycle on the target dataset before reporting results.
 - Add the final paper citation and verify third-party code/data licenses before public release.
+- The segmentation loss currently uses CE + Dice + Tversky weights (0.3, 0.4, 0.3); these are set in `trainer.py`, not configurable from the CLI.

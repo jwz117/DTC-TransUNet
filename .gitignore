@@ -1,21 +1,37 @@
+# Python cache and environments
 __pycache__/
 *.py[cod]
 .venv/
 venv/
+env/
 .env
+.env.*
+!.env.example
+
+# IDE / OS files
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
+.ipynb_checkpoints/
+
+# Local datasets and generated outputs
 data/
 datasets_local/
 outputs/
 results/
 runs/
 checkpoints/
+
+# Model weights and NumPy datasets
 *.pth
 *.pt
 *.ckpt
 *.npy
 *.npz
+*.onnx
+
+# Logs and local credentials
 *.log
+secrets.*
+credentials.*

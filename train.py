@@ -4,11 +4,13 @@ import time
 import argparse
 import numpy as np
 import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader
 from datasets.npy_dataset import NpyLandslideDataset, create_loaders
 from models.dtc_transunet import DTCTransUNet
 from trainer import Trainer, TrainConfig, _resolve_device
 from utils.checkpoint import load_model_checkpoint
+from utils.reproducibility import set_seed
 
 RED = "\033[31m"
 WHITE = "\033[37m"
@@ -92,8 +94,6 @@ def build_parser():
     tr.add_argument("--gamma", type=float, default=0.99)
     tr.add_argument("--momentum", type=float, default=0.9)
     tr.add_argument("--weight_decay", type=float, default=1e-4)
-    tr.add_argument("--w_ce", type=float, default=0.5)
-    tr.add_argument("--w_dice", type=float, default=0.5)
     tr.add_argument("--edge_loss_w", type=float, default=0.2)
     tr.add_argument("--struct_loss_w", type=float, default=0.2)
 
@@ -246,8 +246,6 @@ def main():
             gamma=float(args.gamma),
             momentum=float(args.momentum),
             weight_decay=float(args.weight_decay),
-            w_ce=float(args.w_ce),
-            w_dice=float(args.w_dice),
             edge_loss_w=float(args.edge_loss_w),
             struct_loss_w=float(args.struct_loss_w),
         )

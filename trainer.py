@@ -26,8 +26,6 @@ class TrainConfig:
     gamma: float = 0.99
     momentum: float = 0.9
     weight_decay: float = 1e-4
-    w_ce: float = 0.5
-    w_dice: float = 0.5
     edge_loss_w: float = 0.2
     struct_loss_w: float = 0.2
 
